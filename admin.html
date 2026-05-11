@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpha Store - Dashboard Admin</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="admin-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-crown"></i>
+                <span>Alpha Admin</span>
+            </div>
+            <nav>
+                <button id="btn-products" class="nav-btn active" onclick="showSection('products')">
+                    <i class="fa-solid fa-box"></i> Produtos
+                </button>
+                <button id="btn-orders" class="nav-btn" onclick="showSection('orders')">
+                    <i class="fa-solid fa-cart-shopping"></i> Pedidos
+                </button>
+                <button class="nav-btn" onclick="location.href='index.html'">
+                    <i class="fa-solid fa-store"></i> Ver Loja
+                </button>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            
+            <div style="display: flex; gap: 20px; margin-bottom: 30px; flex-wrap: wrap;">
+                <div style="background: var(--secondary); padding: 20px; border-radius: 15px; border: 1px solid var(--border); flex: 1; min-width: 200px;">
+                    <p style="color: var(--text-dim); font-size: 0.8rem;">Produtos Ativos</p>
+                    <h3 id="statProducts" style="color: var(--accent); font-size: 1.5rem;">0</h3>
+                </div>
+                <div style="background: var(--secondary); padding: 20px; border-radius: 15px; border: 1px solid var(--border); flex: 1; min-width: 200px;">
+                    <p style="color: var(--text-dim); font-size: 0.8rem;">Total Pedidos</p>
+                    <h3 id="statOrders" style="color: var(--accent); font-size: 1.5rem;">0</h3>
+                </div>
+                <div style="background: var(--secondary); padding: 20px; border-radius: 15px; border: 1px solid var(--border); flex: 1; min-width: 200px;">
+                    <p style="color: var(--text-dim); font-size: 0.8rem;">Faturamento</p>
+                    <h3 id="statRevenue" style="color: #00ff88; font-size: 1.5rem;">R$ 0,00</h3>
+                </div>
+            </div>
+
+            <section id="section-products" class="content-section">
+                <div class="header-actions">
+                    <div>
+                        <h2>Gerenciar Catálogo</h2>
+                        <p style="color: var(--text-dim); font-size: 0.8rem;">Adicione ou remova itens da sua loja</p>
+                    </div>
+                    <button class="add-btn" onclick="openAddModal()">
+                        <i class="fa-solid fa-plus"></i> Novo Produto
+                    </button>
+                </div>
+
+                <div class="table-container">
+                    <table id="productsTable">
+                        <thead>
+                            <tr>
+                                <th>Imagem</th>
+                                <th>Nome</th>
+                                <th>Categoria</th>
+                                <th>Preço</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productTableBody">
+                            </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="section-orders" class="content-section" style="display: none;">
+                <div class="header-actions">
+                    <div>
+                        <h2>Pedidos Realizados</h2>
+                        <p style="color: var(--text-dim); font-size: 0.8rem;">Gerencie o status das vendas</p>
+                    </div>
+                    <button class="add-btn" onclick="fetchOrders()" style="background: var(--glass); color: white; border: 1px solid var(--border);">
+                        <i class="fa-solid fa-rotate"></i> Atualizar
+                    </button>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Cliente</th>
+                                <th>Discord</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orderTableBody">
+                            </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <div id="productModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="modalTitle">Cadastrar Produto</h3>
+                <i class="fa-solid fa-xmark" onclick="closeModal()" style="cursor: pointer; color: var(--text-dim);"></i>
+            </div>
+            
+            <form id="productForm" onsubmit="saveProduct(event)">
+                <div class="form-grid">
+                    <div class="input-group full">
+                        <label>Nome do Produto</label>
+                        <input type="text" id="p_name" placeholder="Ex: Script de Lavagem" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Categoria</label>
+                        <select id="p_category" required>
+                            <option value="Açaí">Açaí</option>
+                            <option value="Bots">Bots</option>
+                            <option value="Scripts">Scripts</option>
+                            <option value="FiveM">FiveM</option>
+                            <option value="Combos">Combos</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Preço (R$)</label>
+                        <input type="number" step="0.01" id="p_price" placeholder="0,00" required>
+                    </div>
+
+                    <div class="input-group full">
+                        <label>Descrição Detalhada</label>
+                        <textarea id="p_description" rows="3" placeholder="O que vem no produto?"></textarea>
+                    </div>
+
+                    <div class="input-group full">
+                        <label>URL da Imagem (Opcional se usar galeria)</label>
+                        <input type="text" id="p_image_url" placeholder="https://link-da-imagem.com/foto.png">
+                    </div>
+
+                    <div class="input-group full">
+                        <label>Ou selecione da Galeria</label>
+                        <div class="file-upload-area" onclick="document.getElementById('fileInput').click()">
+                            <i class="fa-solid fa-cloud-arrow-up" style="font-size: 1.5rem; color: var(--accent); margin-bottom: 10px;"></i>
+                            <p style="font-size: 0.8rem; color: var(--text-dim);">Clique para selecionar</p>
+                            <input type="file" id="fileInput" hidden accept="image/*" onchange="previewImage(this)">
+                        </div>
+                        
+                        <div id="imagePreview" class="preview-box"></div>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="cancel-btn" onclick="closeModal()">Cancelar</button>
+                    <button type="submit" class="save-btn">Salvar na Alpha Store</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
