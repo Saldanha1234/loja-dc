@@ -1,0 +1,259 @@
+/* SISTEMA ALPHA STORE - CSS DO CARRINHO 
+   ALINHAMENTO: ESQUERDA (LEFT)
+   DESIGN: BOTÕES QUADRADOS E DESTAQUE EM VERMELHO
+*/
+
+/* 1. CONTAINER OVERLAY (FUNDO ESCURO) */
+.cart-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 9999;
+    display: none;
+    /* Trava o conteúdo na esquerda */
+    justify-content: flex-start; 
+    align-items: stretch;
+    backdrop-filter: blur(4px);
+}
+
+/* 2. CORPO DO MODAL (CARRINHO) */
+.cart-modal {
+    width: 100%;
+    max-width: 420px;
+    height: 100vh;
+    background: #0d0d0d; 
+    border-right: 1px solid #222; 
+    padding: 30px 25px;
+    display: flex;
+    flex-direction: column;
+    /* ANIMAÇÃO: Começa fora da tela à esquerda */
+    transform: translateX(-100%); 
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 15px 0 50px rgba(0,0,0,0.8);
+}
+
+.cart-modal.active {
+    transform: translateX(0);
+}
+
+/* 3. CABEÇALHO */
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #1a1a1a;
+}
+
+.cart-header h2 {
+    color: #fff;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.cart-header i {
+    color: #ffce00; /* Cor Accent da Alpha Store */
+}
+
+.close-cart {
+    background: #1a1a1a;
+    color: #fff;
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.close-cart:hover {
+    background: #ffce00;
+    color: #000;
+}
+
+/* 4. LISTA DE ITENS */
+.cart-items-list {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+/* Scrollbar Customizada */
+.cart-items-list::-webkit-scrollbar { width: 4px; }
+.cart-items-list::-webkit-scrollbar-track { background: transparent; }
+.cart-items-list::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
+
+/* 5. ITEM INDIVIDUAL */
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #111;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #1a1a1a;
+}
+
+.cart-item img {
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
+    background: #000;
+    border-radius: 8px;
+    padding: 5px;
+}
+
+.item-info {
+    flex: 1;
+}
+
+.item-info h4 {
+    color: #fff;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.item-price {
+    color: #ffce00;
+    font-weight: 800;
+    font-size: 1rem;
+}
+
+/* 6. CONTROLES QUADRADOS (QUANTIDADE) */
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    background: #000;
+    border-radius: 6px;
+    border: 1px solid #222;
+    overflow: hidden;
+}
+
+.quantity-controls button {
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.quantity-controls button:hover {
+    background: #1a1a1a;
+    color: #ffce00;
+}
+
+.quantity-controls span {
+    width: 30px;
+    text-align: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+/* BOTÃO DE REMOVER - VERMELHO */
+.remove-btn {
+    width: 32px;
+    height: 32px;
+    background: #ff4d4d;
+    border: none;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 5px;
+    transition: 0.3s;
+}
+
+.remove-btn:hover {
+    background: #e60000;
+    transform: scale(1.1);
+}
+
+/* 7. RODAPÉ E TOTAL */
+.cart-footer {
+    border-top: 1px solid #1a1a1a;
+    padding-top: 25px;
+    margin-top: 10px;
+}
+
+.total-container {
+    background: #141414;
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border: 1px solid #222;
+}
+
+.total-container span {
+    color: #888;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.total-container strong {
+    color: #ffce00;
+    font-size: 1.6rem;
+    font-weight: 900;
+}
+
+/* 8. BOTÃO FINALIZAR (ROTA CHECKOUT) */
+.btn-finish {
+    width: 100%;
+    background: #ffce00;
+    color: #000;
+    border: none;
+    padding: 18px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.btn-finish:hover {
+    background: #e6b800;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(255, 206, 0, 0.15);
+}
+
+.btn-continue {
+    width: 100%;
+    background: transparent;
+    color: #888;
+    border: 1px solid #222;
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-continue:hover {
+    background: #111;
+    color: #fff;
+    border-color: #444;
+}

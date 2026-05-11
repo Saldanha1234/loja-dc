@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpha Store | Checkout Seguro</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="checkout.css">
+    
+    <style>
+        :root {
+            --bg-body: #080808;
+            --accent: #ffce00;
+            --border-color: #222;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: #fff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .checkout-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(10, 10, 10, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .checkout-header h1 {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 800;
+        }
+
+        .back-link {
+            position: absolute;
+            left: 20px;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="checkout-header">
+        <a href="index.html" class="back-link">
+            <i class="fa-solid fa-chevron-left"></i> Voltar à Loja
+        </a>
+        <h1>Finalizar Pedido</h1>
+    </header>
+
+    <div class="checkout-container">
+        
+        <div class="left-column">
+            
+            <section class="checkout-section">
+                <div class="section-title">
+                    <i class="fa-solid fa-credit-card"></i> Formas de pagamento
+                </div>
+                
+                <div class="payment-methods">
+                    <div class="method-card active" onclick="selectPayment('pix')">
+                        <div class="method-info">
+                            <i class="fa-brands fa-pix"></i>
+                            <div>
+                                <strong>Pix</strong>
+                                <p style="font-size: 0.75rem; color: #38e083;">Aprovação imediata</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-circle-check" id="check-pix" style="color: var(--accent);"></i>
+                    </div>
+
+                    <div class="method-card" onclick="selectPayment('mercado_pago')">
+                        <div class="method-info">
+                            <i class="fa-solid fa-wallet"></i>
+                            <div>
+                                <strong>Mercado Pago</strong>
+                                <p style="font-size: 0.75rem; color: #888;">Cartão ou Saldo</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-circle-check" id="check-mp" style="color: var(--accent); display: none;"></i>
+                    </div>
+                </div>
+            </section>
+
+            <section class="checkout-section">
+                <div class="section-title">
+                    <i class="fa-solid fa-user-tag"></i> Informações de entrega
+                </div>
+                
+                <div class="contact-form">
+                    <div class="input-group">
+                        <label>Nome completo</label>
+                        <input type="text" id="fullName" placeholder="Digite seu nome">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>E-mail para comprovante</label>
+                        <input type="email" id="email" placeholder="seu@email.com">
+                    </div>
+
+                    <div class="input-group">
+                        <label>ID do Discord (ID Numérico)</label>
+                        <input type="text" id="discordId" placeholder="Ex: 4503923847293847">
+                        <small style="color: #555; font-size: 0.7rem; margin-top: 5px;">
+                            Utilizado pelo Bot para entrega automática do produto.
+                        </small>
+                    </div>
+                </div>
+            </section>
+
+            <div style="display: flex; align-items: flex-start; gap: 10px; padding: 10px;">
+                <input type="checkbox" id="terms" style="margin-top: 4px; cursor: pointer;">
+                <label for="terms" style="font-size: 0.8rem; color: #666; cursor: pointer;">
+                    Estou de acordo com os termos de uso e ciente de que a entrega será realizada via bot no Discord após a confirmação.
+                </label>
+            </div>
+        </div>
+
+        <div class="right-column">
+            <div class="checkout-section order-summary">
+                <div class="section-title">
+                    <i class="fa-solid fa-list-check"></i> Resumo do pedido
+                </div>
+
+                <div id="summaryList">
+                    <p style="color: #444; font-size: 0.9rem;">Carregando itens...</p>
+                </div>
+
+                <div class="summary-total">
+                    <span>Total a pagar</span>
+                    <span id="checkoutTotal">R$ 0,00</span>
+                </div>
+
+                <button class="pay-btn" onclick="processPayment()">
+                    <span id="btnTotal">PAGAR AGORA</span>
+                </button>
+
+                <div style="text-align: center; margin-top: 20px; color: #444; font-size: 0.75rem;">
+                    <i class="fa-solid fa-lock"></i> Ambiente de pagamento 100% seguro
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="checkout.js"></script>
+
+</body>
+</html>

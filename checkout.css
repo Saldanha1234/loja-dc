@@ -1,0 +1,150 @@
+/* DESIGN DO CHECKOUT - ALPHA STORE */
+
+.checkout-container {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr; /* Coluna da esquerda maior que a direita */
+    gap: 30px;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Blocos de Conteúdo */
+.checkout-section {
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+.section-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Formas de Pagamento */
+.payment-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.method-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    background: #0a0a0a;
+    border: 1px solid #333;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.method-card.active {
+    border-color: #ffce00;
+    background: rgba(255, 206, 0, 0.05);
+}
+
+.method-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.method-info i {
+    font-size: 1.5rem;
+    color: #ffce00;
+}
+
+/* Formulário de Contato */
+.contact-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-group label {
+    font-size: 0.85rem;
+    color: #888;
+    font-weight: 600;
+}
+
+.input-group input {
+    background: #0a0a0a;
+    border: 1px solid #333;
+    padding: 15px;
+    border-radius: 8px;
+    color: #fff;
+    outline: none;
+    transition: 0.3s;
+}
+
+.input-group input:focus {
+    border-color: #ffce00;
+}
+
+/* Resumo do Pedido (Coluna Direita) */
+.order-summary {
+    position: sticky;
+    top: 100px;
+    height: fit-content;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    color: #aaa;
+}
+
+.summary-total {
+    border-top: 1px solid #222;
+    padding-top: 15px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: #fff;
+}
+
+.pay-btn {
+    width: 100%;
+    background: #ffce00;
+    color: #000;
+    border: none;
+    padding: 20px;
+    border-radius: 10px;
+    font-weight: 900;
+    font-size: 1rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+.pay-btn:hover {
+    background: #e6b800;
+    transform: translateY(-2px);
+}
+
+/* Responsividade para Celular */
+@media (max-width: 900px) {
+    .checkout-container {
+        grid-template-columns: 1fr;
+    }
+}
